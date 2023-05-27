@@ -30,5 +30,5 @@ alias le='exa -laiguU --group-directories-first  --time-style long-iso'
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-export PATH=/Users/marcosantos/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.files/ --work-tree=$HOME'
