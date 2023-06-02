@@ -15,12 +15,13 @@ return {
 			vim.keymap.set("n", "<leader>fb", tlscp.buffers)
 			vim.keymap.set("n", "<leader>fs", tlscp.lsp_document_symbols)
 			vim.keymap.set("n", "<leader>fd", tlscp.diagnostics)
+			vim.keymap.set("n", "<leader>km", tlscp.keymaps)
 		end,
 		init = function()
 			require("telescope").setup({
 				defaults = {
 					layout_config = { prompt_position = "top" },
-                    sorting_strategy = "ascending",
+					sorting_strategy = "ascending",
 				},
 				pickers = {
 					diagnostics = {
