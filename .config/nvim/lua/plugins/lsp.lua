@@ -31,6 +31,7 @@ vim.diagnostic.config(config)
 local servers = {
 	"lua_ls",
 	"tsserver",
+	"omnisharp",
 }
 
 return {
@@ -49,6 +50,7 @@ return {
 
 			for _, value in pairs(servers) do
 				local require_ok, conf_opts = pcall(require, "plugins.settings." .. value)
+
 				if require_ok then
 					server_opts = vim.tbl_deep_extend("force", conf_opts, server_opts)
 				end
