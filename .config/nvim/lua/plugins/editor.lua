@@ -17,4 +17,9 @@ return {
 		end,
 	},
 	"nvim-treesitter/nvim-treesitter-context",
+	{
+		"kevinhwang91/nvim-ufo",
+		dependencies = "kevinhwang91/promise-async",
+		config = true,
+	},
 }
