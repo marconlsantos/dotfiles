@@ -11,11 +11,10 @@ return {
 	"nvim-tree/nvim-web-devicons",
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		config = function()
-			require("indent_blankline").setup({
-				show_current_context = true,
-			})
-		end,
+		config = true,
+		opts = {
+			show_current_context = true,
+		},
 	},
 	{
 		"nvim-lualine/lualine.nvim",

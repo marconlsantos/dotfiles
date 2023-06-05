@@ -20,3 +20,8 @@ opts.foldcolumn = "1"
 opts.foldlevel = 99
 opts.foldlevelstart = 1
 opts.foldenable = true
+
+opts.hlsearch = false
+opts.incsearch = true
+
+opts.scrolloff = 8
