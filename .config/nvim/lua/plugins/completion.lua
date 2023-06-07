@@ -43,7 +43,6 @@ return {
 	-- snippets
 	{
 		"L3MON4D3/LuaSnip",
-		tag = "v1.*",
 		dependencies = { "rafamadriz/friendly-snippets" },
 	},
 	"saadparwaiz1/cmp_luasnip",
