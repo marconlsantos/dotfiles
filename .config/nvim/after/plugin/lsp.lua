@@ -34,6 +34,12 @@ local servers = {
 	"csharp_ls",
 }
 
+require("mason").setup()
+require("mason-lspconfig").setup({
+	ensure_installed = servers,
+	automatic_installation = true,
+})
+
 -- Setup language servers.
 local lspconfig = require("lspconfig")
 
@@ -98,7 +104,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-require("mason-lspconfig").setup({
+require("mason-nvim-dap").setup({
 	ensure_installed = servers,
 	automatic_installation = true,
 })

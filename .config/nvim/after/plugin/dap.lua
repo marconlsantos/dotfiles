@@ -25,21 +25,6 @@ vim.keymap.set("n", "<Leader>dr", function()
 	dap.repl.open()
 end, { desc = "Open REPL" })
 
-dap.adapters.coreclr = {
-	type = "executable",
-	command = vim.fn.stdpath("data") .. "/mason/packages/netcoredbg/netcoredbg",
-	args = { "--interpreter=vscode" },
-}
-
-dap.configurations.cs = {
-	{
-		type = "coreclr",
-		name = "launch - netcoredbg",
-		request = "launch",
-		program = vim.fn.getcwd() .. "/bin/Debug/net7.0",
-	},
-}
-
 vim.keymap.set({ "n", "v" }, "<Leader>do", function()
 	require("dapui").open()
 end, { desc = "Open DAP UI" })
