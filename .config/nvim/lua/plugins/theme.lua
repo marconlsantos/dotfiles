@@ -1,12 +1,5 @@
 return {
-	{
-		"lalitmee/cobalt2.nvim",
-		dependencies = { "tjdevries/colorbuddy.nvim" },
-		init = function()
-			require("colorbuddy").colorscheme("cobalt2")
-		end,
-	},
-
+	"EdenEast/nightfox.nvim",
 	"nvim-tree/nvim-web-devicons",
 	{
 		"lukas-reineke/indent-blankline.nvim",

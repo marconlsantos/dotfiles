@@ -1,4 +1,8 @@
 local dap = require("dap")
+local vscode = require("dap.ext.vscode")
+
+--vscode.json_decode = require("json5").parse
+vscode.load_launchjs(nil, { coreclr = { "cs" } })
 
 vim.keymap.set("n", "<F5>", function()
 	dap.continue()

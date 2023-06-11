@@ -31,7 +31,7 @@ vim.diagnostic.config(config)
 local servers = {
 	"lua_ls",
 	"tsserver",
-	"csharp_ls",
+	"omnisharp",
 }
 
 require("mason").setup()

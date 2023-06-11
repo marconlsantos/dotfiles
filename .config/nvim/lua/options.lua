@@ -18,7 +18,6 @@ opts.termguicolors = true
 opts.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 opts.foldcolumn = "1"
 opts.foldlevel = 99
-opts.foldlevelstart = 1
 opts.foldenable = true
 
 opts.hlsearch = false
