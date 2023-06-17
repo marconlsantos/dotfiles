@@ -2,11 +2,11 @@ require("telescope").load_extension("fzf")
 
 local tlscp = require("telescope.builtin")
 
-vim.keymap.set("n", "<leader>fh", tlscp.help_tags, { desc = "Show help tags" })
-vim.keymap.set("n", "<leader>fh", tlscp.git_files, { desc = "Find Git files" })
+-- File pickers
+vim.keymap.set("n", "<leader>gf", tlscp.git_files, { desc = "Find Git files" })
 vim.keymap.set("n", "<leader>ff", tlscp.find_files, { desc = "Find files" })
-vim.keymap.set("n", "<leader>fg", tlscp.live_grep, { desc = "Fuzzy find" })
-vim.keymap.set("n", "<leader>fb", tlscp.buffers, { desc = "Show buffers" })
-vim.keymap.set("n", "<leader>fs", tlscp.lsp_document_symbols, { desc = "Show LSP symbols" })
-vim.keymap.set("n", "<leader>fd", tlscp.diagnostics, { desc = "Show LSP diagnostics" })
+vim.keymap.set("n", "<leader>gr", tlscp.live_grep, { desc = "Live grep search" })
+
+-- Vim pickers
+vim.keymap.set("n", "<leader>bf", tlscp.buffers, { desc = "List open buffers" })
 vim.keymap.set("n", "<leader>km", tlscp.keymaps, { desc = "Show keymaps" })
