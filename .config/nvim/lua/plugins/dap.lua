@@ -4,6 +4,9 @@ return {
 		"rcarriga/nvim-dap-ui",
 		config = true,
 	},
-	"theHamsta/vim-dap-virtual-text ",
+	{
+		"theHamsta/nvim-dap-virtual-text",
+		config = true,
+	},
 	"jay-babu/mason-nvim-dap.nvim",
 }
