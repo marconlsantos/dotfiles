@@ -1,6 +1,12 @@
 local dap = require("dap")
 local vscode = require("dap.ext.vscode")
 
+dap.adapters.coreclr = {
+	type = "executable",
+	command = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/netcoredbg",
+	args = { "--interpreter=vscode" },
+}
+
 --vscode.json_decode = require("json5").parse
 vscode.load_launchjs(nil, { coreclr = { "cs" } })
 

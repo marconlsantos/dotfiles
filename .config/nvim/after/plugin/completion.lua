@@ -84,28 +84,3 @@ cmp.setup.cmdline(":", {
 })
 
 require("luasnip.loaders.from_vscode").lazy_load()
-
-local servers = {
-	"lua_ls",
-	"tsserver",
-	"omnisharp",
-}
-
-local lspconfig = require("lspconfig")
-
-local server_opts = {}
-
-local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if status_ok then
-	server_opts.capabilities = cmp_nvim_lsp.default_capabilities()
-end
-
-for _, value in pairs(servers) do
-	local require_ok, conf_opts = pcall(require, "plugins.settings." .. value)
-
-	if require_ok then
-		server_opts = vim.tbl_deep_extend("force", conf_opts, server_opts)
-	end
-
-	lspconfig[value].setup(server_opts)
-end
