@@ -28,41 +28,12 @@ local config = {
 
 vim.diagnostic.config(config)
 
-local servers = {
-	"lua_ls",
-	"tsserver",
-	"omnisharp",
-}
-
 require("mason").setup()
-require("mason-lspconfig").setup({
-	ensure_installed = servers,
-	automatic_installation = true,
-})
+require("mason-lspconfig").setup()
 
 require("Comment").setup({
 	pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
 })
-
--- Setup language servers.
-local lspconfig = require("lspconfig")
-
-local server_opts = {}
-
-local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if status_ok then
-	server_opts.capabilities = cmp_nvim_lsp.default_capabilities()
-end
-
-for _, value in pairs(servers) do
-	local require_ok, conf_opts = pcall(require, "plugins.settings." .. value)
-
-	if require_ok then
-		server_opts = vim.tbl_deep_extend("force", conf_opts, server_opts)
-	end
-
-	lspconfig[value].setup(server_opts)
-end
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -106,10 +77,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-require("mason-nvim-dap").setup({
-	ensure_installed = servers,
-	automatic_installation = true,
-})
+require("mason-nvim-dap").setup()
 
 local null_ls = require("null-ls")
 
