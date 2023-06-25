@@ -13,4 +13,4 @@ keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
 vim.keymap.set("n", "<leader>m", "<cmd>Mason<cr>", { desc = "Mason" })
-vim.keymap.set("n", "<leader>e", "<cmd>NeoTreeShowToggle<cr>", { desc = "Mason" })
+vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Mason" })
