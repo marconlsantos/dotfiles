@@ -1,4 +1,5 @@
 local dap = require("dap")
+local dapui = require("dapui")
 local vscode = require("dap.ext.vscode")
 
 dap.adapters.coreclr = {
@@ -10,39 +11,24 @@ dap.adapters.coreclr = {
 --vscode.json_decode = require("json5").parse
 vscode.load_launchjs(nil, { coreclr = { "cs" } })
 
-vim.keymap.set("n", "<F5>", function()
-	dap.continue()
-end, { desc = "Start/Continue" })
-vim.keymap.set("n", "<F10>", function()
-	dap.step_over()
-end, { desc = "Step Over" })
-vim.keymap.set("n", "<F11>", function()
-	dap.step_into()
-end, { desc = "Step Into" })
-vim.keymap.set("n", "<S-F11>", function()
-	dap.step_out()
-end, { desc = "Step Out" })
-vim.keymap.set("n", "<F9>", function()
-	dap.toggle_breakpoint()
-end, { desc = "Toggle Breakpoint" })
+vim.keymap.set("n", "<F5>", dap.continue, { desc = "Start/Continue" })
+vim.keymap.set("n", "<S-F5>", dap.terminate, { desc = "Stop" })
+vim.keymap.set("n", "<F10>", dap.step_over, { desc = "Step Over" })
+vim.keymap.set("n", "<F11>", dap.step_into, { desc = "Step Into" })
+vim.keymap.set("n", "<S-F11>", dap.step_out, { desc = "Step Out" })
+vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
+
+vim.keymap.set("n", "<Leader>dr", dap.repl.open, { desc = "Open REPL" })
+
+vim.keymap.set({ "n", "v" }, "<Leader>do", dapui.open, { desc = "Open DAP UI" })
+vim.keymap.set({ "n", "v" }, "<Leader>dc", dapui.close, { desc = "Close DAP UI" })
+
 vim.keymap.set("n", "<C-F9>", function()
 	dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))()
 end, { desc = "Conditional Breakpoint" })
 vim.keymap.set("n", "<S-F9>", function()
 	dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
 end)
-vim.keymap.set("n", "<Leader>dr", function()
-	dap.repl.open()
-end, { desc = "Open REPL" })
-
-vim.keymap.set({ "n", "v" }, "<Leader>do", function()
-	require("dapui").open()
-end, { desc = "Open DAP UI" })
-vim.keymap.set({ "n", "v" }, "<Leader>dc", function()
-	require("dapui").close()
-end, { desc = "Close DAP UI" })
-
-local dapui = require("dapui")
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
 	dapui.open()
