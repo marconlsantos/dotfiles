@@ -28,12 +28,10 @@ local config = {
 
 vim.diagnostic.config(config)
 
+-- LSP
+
 require("mason").setup()
 require("mason-lspconfig").setup()
-
-require("Comment").setup({
-	pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-})
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -77,42 +75,37 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
-local servers = {
-	"lua_ls",
-	"tsserver",
-	"omnisharp",
-}
 
-local lspconfig = require("lspconfig")
+-- DAP
+local dap = require("dap")
+local dapui = require("dapui")
 
-local server_opts = {}
+vim.keymap.set("n", "<F5>", dap.continue, { desc = "Start/Continue" })
+vim.keymap.set("n", "<S-F5>", dap.terminate, { desc = "Stop" })
+vim.keymap.set("n", "<F10>", dap.step_over, { desc = "Step Over" })
+vim.keymap.set("n", "<F11>", dap.step_into, { desc = "Step Into" })
+vim.keymap.set("n", "<S-F11>", dap.step_out, { desc = "Step Out" })
+vim.keymap.set("n", "<F9>", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
 
-local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if status_ok then
-	server_opts.capabilities = cmp_nvim_lsp.default_capabilities()
+vim.keymap.set("n", "<Leader>dr", dap.repl.open, { desc = "Open REPL" })
+
+vim.keymap.set({ "n", "v" }, "<Leader>do", dapui.open, { desc = "Open DAP UI" })
+vim.keymap.set({ "n", "v" }, "<Leader>dc", dapui.close, { desc = "Close DAP UI" })
+
+vim.keymap.set("n", "<C-F9>", function()
+	dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))()
+end, { desc = "Conditional Breakpoint" })
+
+vim.keymap.set("n", "<S-F9>", function()
+	dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+end)
+
+dap.listeners.after.event_initialized["dapui_config"] = function()
+	dapui.open()
 end
-
-for _, value in pairs(servers) do
-	local require_ok, conf_opts = pcall(require, "plugins.settings." .. value)
-
-	if require_ok then
-		server_opts = vim.tbl_deep_extend("force", conf_opts, server_opts)
-	end
-
-	lspconfig[value].setup(server_opts)
+dap.listeners.before.event_terminated["dapui_config"] = function()
+	dapui.close()
 end
-
-require("mason-nvim-dap").setup()
-
-local null_ls = require("null-ls")
-
-null_ls.setup({
-	sources = {
-		null_ls.builtins.code_actions.refactoring,
-		null_ls.builtins.code_actions.eslint_d,
-		null_ls.builtins.diagnostics.eslint_d,
-		null_ls.builtins.formatting.prettierd,
-		null_ls.builtins.formatting.stylua,
-		null_ls.builtins.formatting.csharpier,
-	},
-})
+dap.listeners.before.event_exited["dapui_config"] = function()
+	dapui.close()
+end
