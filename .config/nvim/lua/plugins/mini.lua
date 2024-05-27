@@ -21,4 +21,3 @@ return {
 		--  Check out: https://github.com/echasnovski/mini.nvim
 	end,
 }
-
