@@ -49,3 +49,16 @@ vim.opt.shiftwidth = 4
 
 -- only insert spaces
 vim.opt.expandtab = true
+
+-- new buffer below or to the right
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+
+-- don't wrapping long lines
+vim.opt.wrap = false
+
+-- integrate with system clipboard
+vim.opt.clipboard = "unnamedplus"
+
+-- allow as much colors as the terminal allows
+vim.opt.termguicolors = true
