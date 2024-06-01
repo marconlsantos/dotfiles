@@ -4,7 +4,22 @@ return {
 	dependencies = {
 		-- Automatically install LSPs and related tools to stdpath for Neovim
 		{ "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
-		"williamboman/mason-lspconfig.nvim",
+		{
+			"williamboman/mason-lspconfig.nvim",
+			-- event = "VeryLazy",
+			lazy = true,
+			dependencies = {
+				"williamboman/mason.nvim",
+			},
+			opts = {
+				auto_install = true,
+			},
+			config = function()
+				require("mason-lspconfig").setup({
+					ensure_installed = { "lua_ls", "omnisharp" },
+				})
+			end,
+		},
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 		-- Useful status updates for LSP.
@@ -79,6 +94,7 @@ return {
 				--
 				-- When you move your cursor, the highlights will be cleared (the second autocommand).
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
+
 				if client and client.server_capabilities.documentHighlightProvider then
 					local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -134,7 +150,7 @@ return {
 			lua_ls = {
 				-- cmd = {...},
 				-- filetypes = { ...},
-				-- capabilities = {},
+				capabilities = capabilities,
 				settings = {
 					Lua = {
 						completion = {
@@ -142,8 +158,20 @@ return {
 						},
 						-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
 						-- diagnostics = { disable = { 'missing-fields' } },
+						diagnostics = {
+							-- Get the language server to recognize the `vim` global
+							globals = { "vim" },
+						},
 					},
 				},
+			},
+			omnisharp = {
+				capabilities = capabilities,
+				enable_roslyn_analysers = true,
+				enable_import_completion = true,
+				organize_imports_on_format = true,
+				enable_decompilation_support = true,
+				filetypes = { "cs", "vb", "csproj", "sln", "slnx", "props", "csx", "targets" },
 			},
 		}
 
@@ -160,6 +188,7 @@ return {
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format Lua code
+			"csharpier",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
