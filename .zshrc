@@ -25,9 +25,9 @@ plugins=(git macos)
 
 source $ZSH/oh-my-zsh.sh
 
-alias lm='exa -l --icons --no-user --group-directories-first  --time-style long-iso'
-alias la='exa -la --icons --no-user --group-directories-first  --time-style long-iso'
-alias le='exa -laiguU --group-directories-first  --time-style long-iso'
+alias lm='eza -l --icons --no-user --group-directories-first  --time-style long-iso'
+alias la='eza -la --icons --no-user --group-directories-first  --time-style long-iso'
+alias le='eza -laiguU --group-directories-first  --time-style long-iso'
 
 eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/star.omp.json)"
 
