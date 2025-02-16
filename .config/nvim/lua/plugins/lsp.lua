@@ -13,6 +13,7 @@ return {
     },
     config = function()
         require("lspconfig").lua_ls.setup {}
+        require("lspconfig").csharp_ls.setup {}
 
         vim.api.nvim_create_autocmd('LspAttach', {
             callback = function(args)
