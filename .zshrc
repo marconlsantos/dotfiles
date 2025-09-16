@@ -29,7 +29,7 @@ alias lm='eza -l --icons --no-user --group-directories-first  --time-style long-
 alias la='eza -la --icons --no-user --group-directories-first  --time-style long-iso'
 alias le='eza -laiguU --group-directories-first  --time-style long-iso'
 
-eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/star.omp.json)"
+eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/multiverse-neon.omp.json)"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
